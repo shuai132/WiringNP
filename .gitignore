@@ -3,3 +3,11 @@ libwiringPiDev.so.2.0
 libwiringPi.so.2.0
 /test/
 nbproject
+
+#Qt Creator
+WiringNP\.config
+WiringNP\.creator
+WiringNP\.creator\.user
+WiringNP\.files
+WiringNP\.includes
+
