@@ -3,16 +3,17 @@
 #include <wiringPi.h>
 #include <assert.h>
 
-GPIO::GPIO(const GPIOPin &pin, const GPIOMode &mode, const int value)
-    :_pin(pin), _mode(mode), _value(value)
+GPIO::GPIO(const GPIOPin &pin, const GPIOMode &mode)
+    :_pin(pin), _mode(mode)
 {
-    assert(mode == INPUT or mode == OUTPUT);    //only support input and output mode now
+    assert((int)mode == INPUT or (int)mode == OUTPUT);
 
     pullUpDnControl((int)pin, PUD_OFF);
-    pinMode((int)pin, mode);
+    pinMode((int)pin, (int)mode);
 
-    if(mode == OUTPUT){
-        digitalWrite((int)pin, value);
+    if((int)mode == OUTPUT){
+        _value = HIGH;
+        digitalWrite((int)pin, _value);
     }
 }
 
@@ -40,7 +41,7 @@ void GPIO::toggle()
 
 int GPIO::getValue()
 {
-    if(_mode == OUTPUT){
+    if(_mode == GPIOMode::Output){
         return _value;
     }
     else {
@@ -48,9 +49,22 @@ int GPIO::getValue()
     }
 }
 
+GPIO::GPIO(const GPIOPin &pin, const EDGEMode &mode, GPIO::EdgeCallback callback)
+    :_pin(pin), _callback(callback)
+{
+    _mode = GPIOMode::Input;
+    pinMode((int)_pin, (int)_mode);
+    wiringPiISR((int)_pin, (int)mode, callback);
+}
+
+void GPIO::setEdgeCallback(GPIO::EdgeCallback callback)
+{
+    wiringPiISR ((int)_pin, (int)_mode, callback) ;
+}
+
 void GPIO::setMode(const GPIOMode &mode)
 {
-    pinMode((int)_pin, mode);
+    pinMode((int)_pin, (int)mode);
 }
 
 GPIOMode GPIO::getMode()

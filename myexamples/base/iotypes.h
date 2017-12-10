@@ -1,6 +1,8 @@
 #ifndef IOTYPES_H
 #define IOTYPES_H
 
+#include <wiringPi.h>
+
 enum class GPIOPin
 {
     GPIOA0  = 0,
@@ -23,6 +25,18 @@ enum class GPIOPin
     GPIOG11 = 7,
 };
 
-typedef int GPIOMode;
+enum class GPIOMode
+{
+    Input   = INPUT,
+    Output  = OUTPUT,
+};
+
+enum class EDGEMode
+{
+    Setup   = INT_EDGE_SETUP,
+    Falling = INT_EDGE_FALLING,
+    Rising  = INT_EDGE_RISING,
+    Both    = INT_EDGE_BOTH,
+};
 
 #endif // IOTYPES_H
