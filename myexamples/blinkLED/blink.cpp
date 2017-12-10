@@ -19,9 +19,9 @@ int main (void)
   printf ("Three color led test\n") ;
   wiringPiSetup();
 
-  auto led_r = GPIO(GPIOPin::GPIOA12, OUTPUT);
-  auto led_g = GPIO(GPIOPin::GPIOG11, OUTPUT);
-  auto led_b = GPIO(GPIOPin::GPIOA11, OUTPUT);
+  auto led_r = GPIO(GPIOPin::GPIOA12, GPIOMode::Output);
+  auto led_g = GPIO(GPIOPin::GPIOG11, GPIOMode::Output);
+  auto led_b = GPIO(GPIOPin::GPIOA11, GPIOMode::Output);
 
   for(;;){
       randomLed(led_r);
