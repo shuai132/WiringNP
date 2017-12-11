@@ -1,12 +1,15 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required (VERSION 2.8)
 
-PROJECT (BUTTON)
+add_subdirectory(../base base)
 
-SET(BASE_SRC_LIST   ../base/gpio/gpio.cpp
-)
-SET(MY_SRC_LIST     ./button.cpp
-)
-INCLUDE_DIRECTORIES(. ../base ../base/gpio)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
-LINK_LIBRARIES(wiringPi pthread)
-ADD_EXECUTABLE(button ${BASE_SRC_LIST} ${MY_SRC_LIST})
+aux_source_directory(. DIR_SRCS)
+
+include_directories(. ../base ../base/gpio)
+
+add_definitions("-std=c++11 -Wall")
+
+link_libraries(wiringPi pthread)
+
+add_executable(button ${DIR_SRCS})
+
+target_link_libraries(button GPIO)
