@@ -8,8 +8,8 @@ class PWM
 public:
     PWM(GPIOPin pin, int value, int range);
 
-    write(int value);
-    stop();
+    void write(int value);
+    void stop();
 
     int getValue();
     int getRange();

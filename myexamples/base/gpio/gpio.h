@@ -8,7 +8,7 @@
 
 class GPIO
 {
-    typedef std::function<void(void)> EdgeCallback;
+    typedef void (*EdgeCallback)(void);
 public:
     GPIO(const GPIOPin &pin, const GPIOMode &mode);
 

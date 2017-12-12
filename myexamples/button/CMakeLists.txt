@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
-add_subdirectory(../base base)
+add_subdirectory(../base/gpio gpio)
 
 aux_source_directory(. DIR_SRCS)
 

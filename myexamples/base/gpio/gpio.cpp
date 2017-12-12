@@ -54,9 +54,7 @@ GPIO::GPIO(const GPIOPin &pin, const EDGEMode &mode, EdgeCallback callback)
 {
     _mode = GPIOMode::Input;
     pinMode((int)_pin, (int)_mode);
-    wiringPiISR((int)_pin, (int)mode, [](){
-        callback();
-    });
+    wiringPiISR((int)_pin, (int)mode, callback);
 }
 
 void GPIO::setEdgeCallback(GPIO::EdgeCallback callback)

@@ -8,12 +8,12 @@ PWM::PWM(GPIOPin pin, int value, int range)
     softPwmCreate((int)_pin, value, range);
 }
 
-PWM::write(int value)
+void PWM::write(int value)
 {
     softPwmWrite((int)_pin, value);
 }
 
-PWM::stop()
+void PWM::stop()
 {
     softPwmStop((int)_pin);
 }
