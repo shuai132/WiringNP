@@ -4,7 +4,7 @@ add_subdirectory(../base/pwm pwm)
 
 aux_source_directory(. DIR_SRCS)
 
-include_directories(. ../base ../base/pwm)
+include_directories(. ../base ../base/pwm ../base/gpio)
 
 add_definitions("-std=c++11 -Wall")
 
