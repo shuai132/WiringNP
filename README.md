@@ -10,6 +10,10 @@ NanoPi NEO Plus2
 NanoPi M1  
 NanoPi M1 Plus
 
+# Feature
+Add wrapper for c++.  
+For more information, visit `./myexamples`.
+
 # Installation
 
 ## Install WiringNP 
