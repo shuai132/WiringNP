@@ -12,9 +12,9 @@ PWM::PWM(const GPIOPin &pin, const int range, const int freq, const int value)
 
     update(value);
 
-    _io = new GPIO(pin, GPIOMode::Output);
+    _io = new GPIO(_pin, GPIOMode::Output);
     _thread = new std::thread([&](){
-        _isRunning = true;
+        _threadRunning = true;
 
         // signal for terminal itself
         signal(SIGTERM, [](int sig){
@@ -33,7 +33,7 @@ PWM::PWM(const GPIOPin &pin, const int range, const int freq, const int value)
 PWM::~PWM()
 {
     // ensure thread is running when kill it
-    while(!_isRunning){
+    while(!_threadRunning){
         std::chrono::milliseconds(1);
     }
     pthread_kill(_thread->native_handle(), SIGKILL);
@@ -69,4 +69,3 @@ double PWM::getPercent()
 {
     return _value / _range;
 }
-

@@ -17,25 +17,19 @@ GPIO::GPIO(const GPIOPin &pin, const GPIOMode &mode)
     }
 }
 
-void GPIO::high()
+void GPIO::setMode(const GPIOMode &mode)
 {
-    _value = HIGH;
-    digitalWrite((int)_pin, _value);
+    pinMode((int)_pin, (int)mode);
 }
 
-void GPIO::low()
+GPIOMode GPIO::getMode()
 {
-    _value = LOW;
-    digitalWrite((int)_pin, _value);
+    return _mode;
 }
 
-void GPIO::toggle()
+void GPIO::setValue(int value)
 {
-    if(_value == HIGH)
-        _value = LOW;
-    else
-        _value = HIGH;
-
+    _value = value;
     digitalWrite((int)_pin, _value);
 }
 
@@ -49,6 +43,36 @@ int GPIO::getValue()
     }
 }
 
+void GPIO::high()
+{
+    setValue(HIGH);
+}
+
+void GPIO::low()
+{
+    setValue(LOW);
+}
+
+void GPIO::toggle()
+{
+    if(_value == HIGH)
+        setValue(LOW);
+    else
+        setValue(HIGH);
+}
+
+GPIO &GPIO::operator=(int value)
+{
+    setValue(value);
+    return *this;
+}
+
+GPIO &GPIO::operator=(GPIO &io)
+{
+    setValue(io.getValue());
+    return *this;
+}
+
 GPIO::GPIO(const GPIOPin &pin, const EDGEMode &mode, EdgeCallback callback)
     :_pin(pin)
 {
@@ -60,14 +84,4 @@ GPIO::GPIO(const GPIOPin &pin, const EDGEMode &mode, EdgeCallback callback)
 void GPIO::setEdgeCallback(GPIO::EdgeCallback callback)
 {
     wiringPiISR ((int)_pin, (int)_mode, callback) ;
-}
-
-void GPIO::setMode(const GPIOMode &mode)
-{
-    pinMode((int)_pin, (int)mode);
-}
-
-GPIOMode GPIO::getMode()
-{
-    return _mode;
 }

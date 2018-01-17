@@ -32,7 +32,7 @@ private:
 
     // thread
     std::thread *_thread;
-    volatile bool _isRunning = false;
+    volatile bool _threadRunning = false;
 };
 
 #endif // PWM_H
